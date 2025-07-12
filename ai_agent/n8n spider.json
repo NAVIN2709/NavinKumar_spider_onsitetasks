@@ -1,0 +1,85 @@
+{
+  "name": "n8n spider",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "feedback-summary",
+        "options": {}
+      },
+      "id": "94061b50-d493-4dfd-92f5-d055ada186c6",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        0,
+        300
+      ],
+      "webhookId": "ba6a6f95-0c01-4876-a53e-b67f6bfe6c03"
+    },
+    {
+      "parameters": {
+        "url": "https://api.openai.com/v1/chat/completions",
+        "jsonParameters": true,
+        "options": {},
+        "headerParametersJson": "={\n  \"Authorization\": \"Bearer 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\",\n  \"Content-Type\": \"application/json\"\n}"
+      },
+      "id": "fc99fa1c-db71-4cb1-9b3f-0e50caaaa1a0",
+      "name": "OpenAI via HTTP",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [
+        300,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "05a0cbfa-38bc-40b5-acc8-5d8ab655bd97",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        560,
+        300
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "OpenAI via HTTP",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI via HTTP": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "8577da35-e2d7-4da1-9fda-c0163c0cf3a8",
+  "meta": {
+    "instanceId": "c4c37be6c8ede54413059278f1fd295c61a8ca704830a37162dc3dff86fb8b58"
+  },
+  "id": "yIohdXikjMv077cm",
+  "tags": []
+}
